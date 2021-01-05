@@ -14,10 +14,10 @@ const ALL_TRICKS = gql`
                 id
                 title
                 TrickFields {
-                        trickNames {
+                    trickNames {
                         ... on TrickName {
-                        id
-                        title
+                            id
+                            title
                         }
                     }
                 youtubeLink
@@ -26,17 +26,20 @@ const ALL_TRICKS = gql`
     }
 }
 `
-
-
-function Tricks() {
+const Tricks = () => {
     const { loading, error, data } = useQuery(ALL_TRICKS);
+    //const { youtubeLink } = data.tricks.nodes.TrickFields;
+    //const {youtubeLink, title } = props
     if (data) {
         return (
             <ul>
-                {data.tricks.nodes.map(({ title }) => {
+                {
+                data.tricks.nodes.map(({ title, TrickFields }) => {
                     return(
                         <li key={title}>
-                            <h1>Name: {title}</h1>
+                            <h1>Title: {title}</h1>
+                            <p>YT link: {TrickFields.youtubeLink}</p>
+                            
                         </li>
                     )
                 })}
@@ -46,6 +49,5 @@ function Tricks() {
         return <p>Loading...</p>
     }
 }
-
 
 export default Tricks
