@@ -4,7 +4,7 @@ import { Navbar, Nav, NavDropdown, Form, FormControl,  Button, Container, Row , 
 import { useQuery, gql } from '@apollo/client';
 
 // Styles
-import styles from '../styles/tricks.module.css'
+//import styles from '../styls/tricks.module.css'
 
 //Data
 const ALL_TRICKS = gql`
@@ -27,19 +27,18 @@ const ALL_TRICKS = gql`
 }
 `
 const Tricks = () => {
-    const { loading, error, data } = useQuery(ALL_TRICKS);
-    //const { youtubeLink } = data.tricks.nodes.TrickFields;
-    //const {youtubeLink, title } = props
-    if (data) {
+    const { loading, error, data } = useQuery( ALL_TRICKS );
+    // const { youtubeLink } = data.tricks.nodes.TrickFields;
+    // const {youtubeLink, title } = props
+    if ( data ) {
         return (
             <ul>
                 {
                 data.tricks.nodes.map(({ title, TrickFields }) => {
                     return(
-                        <li key={title}>
-                            <h1>Title: {title}</h1>
-                            <p>YT link: {TrickFields.youtubeLink}</p>
-                            
+                        <li key= { title }>
+                            <h1>Title: { title }</h1>
+                            <p>YT link: { TrickFields.youtubeLink }</p>
                         </li>
                     )
                 })}

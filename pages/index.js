@@ -6,40 +6,31 @@ import Link from 'next/link'
 import styles from '../styles/home.module.css'
 
 // Components
-import Header from '../components/Header.js'
-import Tricks from '../components/tricks.js'
-
-
-// Apollo
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
-
-const client = new ApolloClient({
-  uri: 'https://fadb.neffrey.com/graphql',
-  cache: new InMemoryCache()
-});
+import Tricks from '../containers/tricks.js'
 
 
 
-
-export default function Home() {
+const home = () => {
   return (
-    <ApolloProvider client={client}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Prop Tricks: Movement Database</title>
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head>        
 
-      <Header/>
-        
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to Prop Tricks</h1>
+      <main className={ styles.main }>
+        <h1 className={ styles.title }>Welcome to Prop Tricks</h1>
         <Tricks></Tricks>
+
+        <Link href="login">
+          <h6>
+            Login Page
+          </h6>
+        </Link>
       </main>
 
-      <footer className={styles.footer}>
-        <a>Built by Neffrey</a>
-      </footer>
-    </ApolloProvider>
+    </div>
   )
 }
+
+export default home
