@@ -1,8 +1,6 @@
-// Framework
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
-
 // Context
 import { UserContextProvider } from '../contexts/userContext'
+import { ApolloConfig } from '../apolloConfig'
 
 // Components
 import Header from '../components/header'
@@ -13,23 +11,19 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from './styles/app.css'
 
 
-// Apollo Client
-export const client = new ApolloClient({
-  uri: 'https://fadb.neffrey.com/graphql',
-  cache: new InMemoryCache({})
-})
-
 
 // App
 function App({ Component, pageProps }) {
+  //let authToken = localStorage.getItem("auth")
+  //let refreshToken = window.localStorage.getItem("refresh")
   return (
-    <ApolloProvider client={client}>
-      <UserContextProvider>
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
-      </UserContextProvider>
-    </ApolloProvider>
+    <UserContextProvider>
+        <ApolloConfig>
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+      </ApolloConfig>
+    </UserContextProvider>
   )
 }
 export default App
