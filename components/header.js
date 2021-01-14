@@ -1,9 +1,9 @@
 //Framework
 import React from 'react'
-import { Navbar, Nav, NavDropdown, Form, FormControl,  Button, Container, Row , Col, Image } from 'react-bootstrap/'
+import { Navbar, Nav, NavDropdown, Form, FormControl, Container, Row, Button, Image } from 'react-bootstrap/'
 
 //Styles
-import styles from '../styles/header.module.css'
+import styles from './styles/header.module.css'
 
 const Header = () => (
     <Navbar bg="dark" variant="dark" expand="lg">

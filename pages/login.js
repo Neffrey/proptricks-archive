@@ -1,13 +1,17 @@
+// Framework
 import React from 'react'
+
+// Components
 import LoginForm from '../components/loginForm'
 
-import styles from '../styles/login.module.css'
+// Styles
+import styles from './styles/login.module.css'
 
 const Login = () => {
     return (
-        <div>
+        <>
             <LoginForm />
-        </div>
+        </>
     )
 }
 
