@@ -1,6 +1,6 @@
 // Context
-import { UserContextProvider } from '../contexts/userContext'
-import { ApolloConfig } from '../apolloConfig'
+import { AuthContextProvider } from '../contexts/authContext'
+import { ApolloConfig } from '../components/apolloConfig'
 
 // Components
 import Header from '../components/header'
@@ -14,16 +14,14 @@ import styles from './styles/app.css'
 
 // App
 function App({ Component, pageProps }) {
-  //let authToken = localStorage.getItem("auth")
-  //let refreshToken = window.localStorage.getItem("refresh")
   return (
-    <UserContextProvider>
+    <AuthContextProvider>
         <ApolloConfig>
           <Header />
           <Component {...pageProps} />
           <Footer />
       </ApolloConfig>
-    </UserContextProvider>
+    </AuthContextProvider>
   )
 }
 export default App

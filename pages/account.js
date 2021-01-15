@@ -14,8 +14,6 @@ const account = () => {
             <Row>
                 <Col>
                     <h1>My Account</h1>
-                    {console.log("My Account User")}
-                    {console.log(user)}
                 </Col>
             </Row>
         </Container>

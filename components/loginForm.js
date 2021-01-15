@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { gql, useMutation } from '@apollo/client';
-import { UserContext } from '../contexts/userContext'
+import { AuthContext } from '../contexts/authContext'
 import { Navbar, Nav, NavDropdown, Form, FormControl,  Button, Container, Row , Col, Image } from 'react-bootstrap/'
 import { USER_LOGIN } from '../gql/userLogin'
 
@@ -20,7 +20,7 @@ const LoginForm = () => {
     const [ userLoginMutation ] = useMutation(USER_LOGIN)
 
     // Context
-    const { user, login } = useContext(UserContext)
+    const { login } = useContext(AuthContext)
 
     // Inputs
     const [ email, setEmail ] = useState("")
@@ -74,7 +74,6 @@ const LoginForm = () => {
                     Login
                 </Button>
             </Form>
-            {console.log(user)}
         </Container>
     );
   };
