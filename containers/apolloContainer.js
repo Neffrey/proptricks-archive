@@ -3,8 +3,13 @@ import React from 'react'
 import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client'
 import { authStore } from '../contexts/authContext'
 
-// Apollo
+
+
+
+// HttpLink
 const httpLink = new HttpLink({uri: 'https://fadb.neffrey.com/graphql'})
+
+// Auth Header Middleware
 const authMiddleware = new ApolloLink((operation, forward) => {
     if(authStore.get('auth')) {
         operation.setContext({
@@ -15,13 +20,17 @@ const authMiddleware = new ApolloLink((operation, forward) => {
     }
     return forward(operation)
 })
+
+// Client
 export const client = new ApolloClient({
     cache: new InMemoryCache({}),
     link: authMiddleware.concat(httpLink)
 })
 
 
-export const ApolloConfig = ({ children }) => {
+
+// Rendered Component
+export const ApolloContainer = ({ children }) => {
     return (
         <ApolloProvider client={client}>
             {children}

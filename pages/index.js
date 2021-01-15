@@ -7,12 +7,13 @@ import styles from './styles/index.module.css'
 
 // Components
 import TricksContainer from '../containers/tricksContainer'
+import { Container } from 'react-bootstrap'
 
 
 
 const home = () => {
   return (
-    <div>
+    <Container fluid="md">
       <Head>
         <title>Prop Tricks: Movement Database</title>
         <link rel="icon" href="/favicon.ico" />
@@ -29,8 +30,7 @@ const home = () => {
           </h6>
         </Link>
       </main>
-
-    </div>
+    </Container>
   )
 }
 

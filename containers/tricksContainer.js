@@ -21,7 +21,7 @@ const TricksContainer = () => {
     // Success
     else if (data) {
         return (
-            <Container>
+            <Container fluid="md">
                 <TricksTotal trickData={data.tricks.nodes} />
                 <TricksCard trickData={data.tricks.nodes} />
             </Container>

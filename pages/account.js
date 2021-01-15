@@ -1,19 +1,27 @@
 // Framework
 import React, { useContext } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row, Button } from 'react-bootstrap'
 
 // Context
-import { UserContext } from '../contexts/userContext'
+import { AuthContext } from '../contexts/authContext'
 
 const account = () => {
     // Context
-    const { user, login } = useContext(UserContext)
-    
+    const { logout } = useContext(AuthContext)
     return (
-        <Container>
+        <Container fluid="md">
             <Row>
-                <Col>
+                <Col xs={12} md={9}>
                     <h1>My Account</h1>
+                </Col>
+                <Col xs={12} md={3}>
+                    <Button
+                        block
+                        variant="outline-danger"
+                        onClick={ logout }
+                    >
+                        Logout
+                    </Button>
                 </Col>
             </Row>
         </Container>
