@@ -41,7 +41,6 @@ const LoginForm = () => {
             }
         }).then(
             res => login(res),
-            router.push('/account'),
 
             // Todo handle error
             err => console.log(err)
