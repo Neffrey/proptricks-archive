@@ -1,72 +1,111 @@
 // Framework
 import React, { useState, useContext } from 'react'
-import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { gql, useMutation } from '@apollo/client';
-import { AuthContext } from '../contexts/authContext'
-import { Navbar, Nav, NavDropdown, Form, FormControl,  Button, Container, Row , Col, Image } from 'react-bootstrap/'
+import { Form, FormControl,  Button, Container, Row , Col } from 'react-bootstrap/'
+
+
+// GQL
+import { useMutation } from '@apollo/client'
 import { USER_LOGIN } from '../gql/userLogin'
 
 
 
+// Context
+import { AuthContext } from '../contexts/authContext'
+
+
 
 const LoginForm = () => {
-    
-    // Router
-    const router = useRouter()
+    // Context
+    const { login } = useContext(AuthContext)
 
     // GQL
     const [ userLoginMutation ] = useMutation(USER_LOGIN)
 
-    // Context
-    const { login } = useContext(AuthContext)
-
     // Inputs
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
-        
+    const [ remember, setRemember ] = useState(false)
+    
+    // Validate before submit
     function validateForm() {
         return email.length > 0 && password.length > 0
     }
+    
+    // Handle Submit
+    const handleSubmit = event => {
 
-    const handleSubmit = e => {
-        e.preventDefault()
-
+        //console.log("handler fired")
+        event.preventDefault()
+        //console.log(remember)
+        
+        
         // Send Mutation
-        userLoginMutation({
-            variables: { 
-                username: email, 
-                password: password 
-            }
-        }).then(
-            res => login(res),
-
-            // Todo handle error
-            err => console.log(err)
-        )
+        login( userLoginMutation({variables: { username: email, password: password}}), remember)
+        
     }
 
+
     return (
-        <Container className="login-container">
-            <Form onSubmit={ handleSubmit }>
-                <Form.Row>
-                    <Form.Group as={ Col } size="lg" controlId="email">
+        <Container >
+            <h1 style={{textAlign:"center"}}>USER LOGIN</h1>
+            <Form onSubmit={handleSubmit}>
+                <Form.Row>                    
+                    <Form.Group 
+                        as={Col}
+                        xs={12} 
+                        size="lg" 
+                        controlId="email"
+                    >
                         <Form.Label>Email</Form.Label>
                         <Form.Control
                             autoFocus
+                            placeholder="email@address.com"
                             type="email"
                             value={email}
                             onChange={ e => setEmail(e.target.value)}
                         />
+                        <Form.Text className="text-muted">
+                          We'll never share your info with anyone else.
+                        </Form.Text>
                     </Form.Group>
-                    <Form.Group  as={ Col } size="lg" controlId="password">
+
+                    <Form.Group  
+                        as={Col} 
+                        xs={12} 
+                        size="lg" 
+                        controlId="password" 
+                    >
                         <Form.Label>Password</Form.Label>
                         <Form.Control
                             type="password"
+                            placeholder="password"
                             value={password}
                             onChange={ e => setPassword(e.target.value)}
                         />
+                    </Form.Group>
+
+                    <Form.Group 
+                        style={{width:"100%"}}
+                        as={Row} 
+                        controlId="loginOptions"
+                    > 
+                        <Col xs={6}>
+                            <Form.Check 
+                            style={{marginLeft: "25px"}}
+                                type="checkbox" 
+                                label="Remember Me"
+                                onChange={ e => setRemember(e.target.checked)}
+                            />
+                        </Col>
+
+                        <Col 
+                            xs={6}
+                        >
+                            <Link href="/reset-password">
+                                <a style={{float: "right"}} >Forgot Password?</a>
+                            </Link>
+                        </Col>
                     </Form.Group>
                 </Form.Row>
                 <Button block size="lg" type="submit" disabled={ !validateForm() }>
@@ -74,7 +113,7 @@ const LoginForm = () => {
                 </Button>
             </Form>
         </Container>
-    );
-  };
+    )
+  }
   
   export default LoginForm

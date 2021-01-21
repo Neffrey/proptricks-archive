@@ -1,17 +1,20 @@
 // Framework
 import React from 'react'
+import { Container, Row, Col } from 'react-bootstrap'
 
 // Components
 import LoginForm from '../components/loginForm'
 
-// Styles
-import styles from './styles/login.module.css'
 
 const Login = () => {
     return (
-        <>
-            <LoginForm />
-        </>
+        <Container fluid>
+            <Row>
+                <Col>
+                    <LoginForm />
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

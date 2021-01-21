@@ -3,14 +3,12 @@ import React from 'react'
 import Link from 'next/link'
 import { Navbar, Nav, Image } from 'react-bootstrap/'
 
-//Styles
-import styles from './styles/header.module.css'
 
 const Header = () => (
     <Navbar bg="dark" variant="dark" expand="lg">
         <Link href="/" passHref={true}>
             <Navbar.Brand>
-                <Image className={styles.navLogo} src="\rgbcmyfol-wbrdr-750.png" />
+                <Image style={{maxWidth:'80px'}} src="\rgbcmyfol-wbrdr-750.png" />
                 Prop Tricks
             </Navbar.Brand>
         </Link>

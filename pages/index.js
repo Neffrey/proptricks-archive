@@ -2,8 +2,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-// Styles
-import styles from './styles/index.module.css'
 
 // Components
 import TricksContainer from '../containers/tricksContainer'
@@ -19,8 +17,16 @@ const home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>        
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to Prop Tricks</h1>
+      <main>
+        <h1 
+          style={{
+            textAlign: 'center',
+            fontSize:'3em',
+            margin:'40px'
+          }}
+        >
+          Welcome to Prop Tricks
+        </h1>
         <br />
         <TricksContainer />
         <br />

@@ -2,9 +2,6 @@
 import React, { useState } from 'react'
 import { Row , Col, Card, Button, Toast } from 'react-bootstrap/'
 
-// Styles
-import styles from './styles/tricks.module.css'
-
 
 const TricksCard = ( props ) => {
     return ( 

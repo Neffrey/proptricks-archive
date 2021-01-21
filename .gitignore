@@ -35,3 +35,9 @@ yarn-error.log*
 
 # WP Plugin
 bt-pt-mutations.php
+
+# Design Ideas
+/designIdeas/
+
+# lib
+/lib/
