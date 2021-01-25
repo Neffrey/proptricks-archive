@@ -34,7 +34,6 @@ yarn-error.log*
 .vercel
 
 # WP Plugin
-bt-pt-mutations.php
 
 # Design Ideas
 /designIdeas/

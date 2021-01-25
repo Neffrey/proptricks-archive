@@ -13,7 +13,7 @@ import { AuthContext } from '../contexts/authContext'
 
 // Crypto
 import { decrypt } from '../lib/crypto'
-import { authKey } from '../contexts/authContext'
+import { authKey } from '../lib/keys'
 
 // HttpLink
 const httpLink = new HttpLink({uri: 'https://fadb.neffrey.com/graphql'})

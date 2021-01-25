@@ -13,8 +13,7 @@ export const authStore = require('store')
 export const AuthContext = createContext({})
 
 // Keys
-export const authKey =    "B?E(H+MbQeShVmYq3t6w9z$C&F)J@NcR"
-export const refreshKey = "NT2LfIHVxSH4y9z$C&F)J@Yq3t6w9oPS"
+import { authKey,refreshKey } from '../lib/keys'
 
 
 
@@ -24,16 +23,12 @@ export const AuthContextProvider = ({ children }) => {
     const router = useRouter()  
 
     // GQL
-    const [ refreshTokensMutation ] = useMutation( REFRESH_TOKENS )
+    const [ refreshTokenMutation ] = useMutation( REFRESH_TOKENS )
 
     // State Vars
     const [ currentAuth, setCurrentAuth ] = useState("")
     const [ currentRefresh, setCurrentRefresh ] = useState("")
-    const [ currentSeshLoginTime, setCurrentSeshLoginTime ] = useState( new Date() )
-    const [ authTime, setAuthTime ] = useState( new Date() )
-    
-    // Timestamp Vars
-    const timerMinutes = 3
+
 
 
     // Context Actions
@@ -45,24 +40,34 @@ export const AuthContextProvider = ({ children }) => {
     // If setState does not exist && localstore refresh exists => refreshToken GQL & setState currentTokens
 
     const userAuthenticated = () => {
-        if ( currentAuth ) {
-            // Check if refresh is needed
-            if ( Date.now() > authTime ) {
-                // Renew Auth Token 
-                refreshTokens()
-                // setAuthTimer
-            }
-            return currentAuth
+        if ( !currentAuth && authStore.get( 'refresh' )) {
+                refreshToken()
+                console.log("UAuth if !currentAuth && get refresh")
+                return true
         }
-        else if ( !currentAuth ) {
 
+        else if ( currentAuth && authStore.get( 'authTimer' ) ) {
+            // Check if refresh is needed
+            if ( authStore.get( 'refresh' ) && Date.now() > new Date( authStore.get( 'authTimer' ))) {
+                refreshToken()
+                console.log("UAuth currentAuth timer flag")
+            }
+            console.log("UAuth currentAuth is good")
+            return true
         }
+        else {
+            console.log("UserAuth Failed")
+            return false
+        }
+
     }
 
 
     // Set Refresh Timer
-    const setRefreshTimer = lastRefresh => {
-        new Date( lastRefresh.setMinutes( lastRefresh.getMinutes() + timerMinutes ))
+    const createTimer = time => {
+        const timerMinutes = 3
+        time = new Date( time )
+        return new Date( time.setMinutes( time.getMinutes() + timerMinutes ))
     }
 
 
@@ -80,12 +85,12 @@ export const AuthContextProvider = ({ children }) => {
 
 
                 // Store Refresh
-                setCurrentRefresh(resolve.data.login.refreshToken)
+                setCurrentRefresh( resolve.data.login.refreshToken )
                 if(remember) {
-                    console.log("Remember Yes")
+                    console.log( "Remember Yes" )
                     authStore.set( 'refresh', encrypt( resolve.data.login.refreshToken, refreshKey ))
                 }
-                console.log("Login Mutation")
+                console.log( "Login Mutation" )
             },
             // Todo handle error
             error => console.log(error)
@@ -93,9 +98,14 @@ export const AuthContextProvider = ({ children }) => {
 
 
         // Set Timestamps
-        authStore.set( 'sessionStartTime', currentSeshLoginTime )
-        setAuthTime( setRefreshTimer( currentSeshLoginTime ))
-        authStore.set( 'authTime', setRefreshTimer( currentSeshLoginTime ))
+        // Last Login
+        if ( authStore.get( 'sessionStart' )) {
+            authStore.set( 'previousSessionStart', authStore.get( 'sessionStart' ))
+        }
+        // Session Start
+        authStore.set( 'sessionStart', new Date() )
+        // authTimer
+        authStore.set( 'authTimer', createTimer( authStore.get( 'sessionStart' )))
 
 
 
@@ -104,18 +114,9 @@ export const AuthContextProvider = ({ children }) => {
         router.push('/account')
     }
 
-    // Logout Func
-    const logout = () => {
-        authStore.clearAll()
-        setCurrentAuth("")
-        setCurrentRefresh("")
-        console.log("LOGOUT FIRED")
-        //router.push('/login')
-    }
-
 
     // RefreshToken
-    const refreshTokens = () => {
+    const refreshToken = () => {
         // Token Var
         let token = ""
 
@@ -125,11 +126,12 @@ export const AuthContextProvider = ({ children }) => {
 
         // send mutation if a key exists
         if ( token ) {
-            refreshTokensMutation({ variables: { jwtRefreshToken: token }}).then(
+            refreshTokenMutation({ variables: { jwtRefreshToken: token }}).then(
                 resolve => {
                     // Store Auth tokens
                     setCurrentAuth( resolve.data.refreshJwtAuthToken.authToken )
                     authStore.set( 'auth', encrypt( resolve.data.refreshJwtAuthToken.authToken, authKey ))
+                    authStore.set( 'authTimer', createTimer( new Date() ))
                     console.log( "RefreshMutationPromise" )
                 },
                 // Todo handle error
@@ -141,9 +143,21 @@ export const AuthContextProvider = ({ children }) => {
         console.log("REFRESH TOKEN FIRED")
     }
 
+
+    // Logout Func
+    const logout = () => {
+        authStore.clearAll()
+        setCurrentAuth("")
+        setCurrentRefresh("")
+        console.log("LOGOUT FIRED")
+        //router.push('/login')
+    }
+
+
+
     // Render 
     return (
-        <AuthContext.Provider value={{ login, logout, refreshTokens, userAuthenticated, currentAuth, currentRefresh, authTime }}>
+        <AuthContext.Provider value={{ login, logout, refreshToken, userAuthenticated, currentAuth, currentRefresh }}>
             {children}
         </AuthContext.Provider>
     )

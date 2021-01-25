@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { Col, Container, Row, Button } from 'react-bootstrap'
 
 // Context
-import { AuthContext, authStore, refreshKey } from '../contexts/authContext'
+import { AuthContext, authStore, refreshKey, userAuthenticated } from '../contexts/authContext'
 
 // GQL
 import { useMutation } from '@apollo/client'
@@ -15,7 +15,7 @@ import TokensModal from '../components/tokensModal'
 const account = () => {
 
     // Context
-    const { login, logout, refreshTokens } = useContext(AuthContext)
+    const { login, logout, refreshToken, userAuthenticated } = useContext(AuthContext)
     
     // GQL
     const [ userLoginMutation ] = useMutation(USER_LOGIN)
@@ -30,9 +30,14 @@ const account = () => {
         login( userLoginMutation({ variables: { username: "neffreyl@gmail.com", password: "test" }}), true )
     }
 
-    const handleRefreshTokensClick = res => {
+    const handleRefreshTokenClick = res => {
         // Send Mutation
-        refreshTokens()
+        refreshToken()
+    }
+
+    const handleAuthenticateClick = res => {
+        // Send Mutation
+        userAuthenticated()
     }
 
     
@@ -54,9 +59,16 @@ const account = () => {
                     <Button
                         block
                         variant="outline-primary"
-                        onClick={ handleRefreshTokensClick }
+                        onClick={ handleRefreshTokenClick }
                     >
                         Refresh Tokens
+                    </Button>
+                    <Button
+                        block
+                        variant="outline-info"
+                        onClick={ handleAuthenticateClick }
+                    >
+                        Authenticate
                     </Button>
                     <Button
                         block
