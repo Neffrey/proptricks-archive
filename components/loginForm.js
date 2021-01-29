@@ -1,8 +1,10 @@
 // Framework
 import React, { useState, useContext } from 'react'
 import Link from 'next/link'
-import { Form, FormControl,  Button, Container, Row , Col } from 'react-bootstrap/'
 
+// MUI
+import { Button, Checkbox, FormControlLabel, Grid, Paper, TextField } from '@material-ui/core/'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 // GQL
 import { useMutation } from '@apollo/client'
@@ -12,10 +14,14 @@ import { USER_LOGIN } from '../gql/userLogin'
 
 // Context
 import { AuthContext } from '../contexts/authContext'
+  
 
-
-
+// Component Function
 const LoginForm = () => {
+
+    // Styles
+    const theme = useTheme()
+
     // Context
     const { login } = useContext(AuthContext)
 
@@ -47,72 +53,60 @@ const LoginForm = () => {
 
 
     return (
-        <Container >
-            <h1 style={{textAlign:"center"}}>USER LOGIN</h1>
-            <Form onSubmit={handleSubmit}>
-                <Form.Row>                    
-                    <Form.Group 
-                        as={Col}
-                        xs={12} 
-                        size="lg" 
-                        controlId="email"
-                    >
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                            autoFocus
-                            placeholder="email@address.com"
-                            type="email"
-                            value={email}
-                            onChange={ e => setEmail(e.target.value)}
-                        />
-                        <Form.Text className="text-muted">
-                          We'll never share your info with anyone else.
-                        </Form.Text>
-                    </Form.Group>
+        <Grid container spacing={3} alignItems="center" justify="center" style={{ maxWidth:"700px", padding:"24px" }}>
 
-                    <Form.Group  
-                        as={Col} 
-                        xs={12} 
-                        size="lg" 
-                        controlId="password" 
-                    >
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="password"
-                            value={password}
-                            onChange={ e => setPassword(e.target.value)}
-                        />
-                    </Form.Group>
+            <Grid item xs={12}>
+                <h1 style={{textAlign:"center"}}>USER LOGIN</h1>
+            </Grid>
+            
+            <Grid item xs={12} md={6}>
+                <TextField
+                    id="email-input"
+                    label="Email"
+                    value={email}
+                    onChange={ e => setEmail(e.target.value)}
+                    variant="outlined"
+                    required
+                />
+            </Grid>
 
-                    <Form.Group 
-                        style={{width:"100%"}}
-                        as={Row} 
-                        controlId="loginOptions"
-                    > 
-                        <Col xs={6}>
-                            <Form.Check 
-                            style={{marginLeft: "25px"}}
-                                type="checkbox" 
-                                label="Remember Me"
-                                onChange={ e => setRemember(e.target.checked)}
-                            />
-                        </Col>
+            <Grid item xs={12} md={6}>
+                <TextField
+                    id="password-input"
+                    label="Password"
+                    type="password"
+                    value={password}
+                    onChange={ e => setPassword(e.target.value)}
+                    variant="outlined"
+                    required
+                />
+            </Grid>
+            
+            <Grid item xs={6}>
+                <FormControlLabel
+                    control={
+                        <Checkbox color="primary" checked={remember} onChange={ e => setRemember(e.target.checked)} name="remember-me" />}
+                    label="Remember Me"
+                />
+            </Grid>
+            
+            <Grid item xs={6}>
+                <Link href="/reset-password">
+                    <a>Forgot Password?</a>
+                </Link>
+            </Grid>
 
-                        <Col 
-                            xs={6}
-                        >
-                            <Link href="/reset-password">
-                                <a style={{float: "right"}} >Forgot Password?</a>
-                            </Link>
-                        </Col>
-                    </Form.Group>
-                </Form.Row>
-                <Button block size="lg" type="submit" disabled={ !validateForm() }>
+            <Grid item xs={12}>
+                <Button  
+                    color="primary" 
+                    variant="contained"
+                    disabled={ !validateForm() } 
+                    onClick={ handleSubmit }
+                >
                     Login
                 </Button>
-            </Form>
-        </Container>
+            </Grid>
+        </Grid>
     )
   }
   

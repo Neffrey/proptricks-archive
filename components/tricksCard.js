@@ -1,110 +1,62 @@
 //Framework
 import React, { useState } from 'react'
-import { Row , Col, Card, Button, Toast } from 'react-bootstrap/'
+
+// MUI
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography } from '@material-ui/core/'
+import { makeStyles } from '@material-ui/core/styles'
+
+// Styles
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 345,
+    },
+    media: {
+        height: 140,
+    },
+})
 
 
-const TricksCard = ( props ) => {
+
+// Component Function
+const TricksCard = ({ trickData }) => {
+    const classes = useStyles()
     return ( 
-        <Row>
-            { props.trickData.map(({ id, title, TrickFields }) => {
-                const [ show, setShow ] = useState(false)
+        trickData.map(({ id, title, TrickFields }) => {
+            const [ show, setShow ] = useState(false)
 
-                const handleClick = () => {
-                    console.log("Card Clicked")
-                    console.log(id)  
-                    console.log(TrickFields)
-                    setShow(!show)
-                }
-                
-                return(
-                    <Card style={{ width: '18rem' }} key={id}>
-                        <Card.Img variant="top" src="/rgbcmyfol-wbrdr-750.png" />
-                        <Card.Body>
-                            <Card.Title>{title}</Card.Title>
-                            <Card.Text>
-                                Alt Names: <br />
-                                
-                            </Card.Text>
-                            <Row>
-                                <Col>
-                                    <Button 
-                                        variant="outline-primary"
-                                        onClick={ handleClick }
-                                    >
-                                        Clicky
-                                    </Button>
-                                    <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
-                                        <Toast.Header>
-                                            Yaaayyy
-                                        </Toast.Header>
-                                    </Toast>
-                                </Col>
-                                <Col>
-                                    <Button 
-                                        variant="outline-danger"
-                                        href={TrickFields.youtubeLink}
-                                    >
-                                        Clicky
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Card.Body>
+            const handleClick = () => {
+                console.log("Card Clicked")
+                console.log(id)  
+                console.log(TrickFields)
+                setShow(!show)
+            }
+            
+            return (
+                <Grid item xs={4} key={ id }>
+                    <Card className={ classes.root }>
+                        <CardActionArea>
+                            <CardMedia
+                                className={ classes.media }
+                                image="/rgbcmyfol-wbrdr-750.png"
+                                title={ title }
+                            />
+
+                            <CardContent>
+                                <Typography variant="h5">{ title }</Typography>
+                            </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                            <Button 
+                                onClick={ handleClick }
+                            >
+                                Clicky
+                            </Button>
+                        </CardActions>
                     </Card>
-                )
-            })}     
-        </Row>
+                </Grid>
+            )
+        })  
     )
 }
 
 export default TricksCard
-
-/*
-{ props.trickData.map(({ id, title, TrickFields }) => {
-                // const [ show, setShow ] = useState(false)
-
-                const handleClick = () => {             
-                }
-                
-                return(null
-                )
-            })}     
-
-
-
-
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src="/rgbcmyfol-wbrdr-750.png" />
-                        <Card.Body>
-                            <Card.Title>{title}</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                            </Card.Text>
-                            <Button 
-                                variant="primary"
-                                onClick={ handleClick }
-                            >
-                                Go Somewhere
-                            </Button>
-                        </Card.Body>
-                    </Card>
-                    
-const [show, setShow] = useState(false);
-  const target = useRef(null);
-
-  return (
-    <>
-      <Button ref={target} onClick={() => setShow(!show)}>
-        Click me!
-      </Button>
-      <Overlay target={target.current} show={show} placement="right">
-        {(props) => (
-          <Tooltip id="overlay-example" {...props}>
-            My Tooltip
-          </Tooltip>
-        )}
-      </Overlay>
-    </>
-  );                    
-                    
-*/

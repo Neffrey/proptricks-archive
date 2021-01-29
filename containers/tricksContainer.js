@@ -1,11 +1,13 @@
 //Framework
 import React, { useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import { Container } from 'react-bootstrap'
+
+// MUI
+import { Grid } from '@material-ui/core'
 
 // Components
 import TricksCard from '../components/tricksCard'
-import TricksTotal from '../components/totalTricks'
+import TotalTricks from '../components/totalTricks'
 
 // GQL
 import { TRICKS_ALL } from '../gql/tricksAll'
@@ -21,10 +23,12 @@ const TricksContainer = () => {
     // Success
     else if (data) {
         return (
-            <Container fluid="md">
-                <TricksTotal trickData={data.tricks.nodes} />
+            <Grid container spacing={2} justify="center">
+                <Grid item xs={12}>
+                    <TotalTricks trickData={data.tricks.nodes} />
+                </Grid>
                 <TricksCard trickData={data.tricks.nodes} />
-            </Container>
+            </Grid>
         )
     }
     else return <p>Something went wrong</p>

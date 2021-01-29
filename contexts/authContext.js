@@ -18,7 +18,7 @@ import { authKey,refreshKey } from '../lib/keys'
 
 
 // Provider Component
-export const AuthContextProvider = ({ children }) => {
+const authContextProvider = ({ children }) => {
     // Router
     const router = useRouter()  
 
@@ -139,7 +139,10 @@ export const AuthContextProvider = ({ children }) => {
 
             )
         }
-        else console.log("no refresh token found")
+        else {
+            console.log("no refresh token found")
+            router.push('/login')
+        }
         console.log("REFRESH TOKEN FIRED")
     }
 
@@ -150,7 +153,7 @@ export const AuthContextProvider = ({ children }) => {
         setCurrentAuth("")
         setCurrentRefresh("")
         console.log("LOGOUT FIRED")
-        //router.push('/login')
+        router.push('/login')
     }
 
 
@@ -162,4 +165,4 @@ export const AuthContextProvider = ({ children }) => {
         </AuthContext.Provider>
     )
 }
-
+export default authContextProvider

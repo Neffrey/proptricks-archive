@@ -45,10 +45,11 @@ export const client = new ApolloClient({
 
 
 // Rendered Component
-export const Apollo = ({ children }) => {    
+const Apollo = ({ children }) => {    
     return (
         <ApolloProvider client={client}>
             {children}
         </ApolloProvider>
     )
 }
+export default Apollo

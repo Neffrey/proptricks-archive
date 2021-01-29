@@ -3,11 +3,11 @@ import React, { useState, useContext } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 
 // Context
-import { AuthContext, authStore, refreshKey } from '../contexts/authContext'
+import { AuthContext, authStore } from '../contexts/authContext'
 
 //Crypto
 import { decrypt } from '../lib/crypto'
-import { authKey } from '../lib/keys'
+import { authKey, refreshKey } from '../lib/keys'
 
 // Component Function
 const TokensModal = () => {
