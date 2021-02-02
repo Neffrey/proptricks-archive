@@ -5,42 +5,39 @@ import React, { createContext, useState } from 'react'
 import { CssBaseline } from '@material-ui/core/'
 import { ThemeProvider, createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 
+// Preset Themes
+import { presetThemes } from '../themes/presetThemes'
 
-
+// Export Context
 export const ThemeContext = createContext({})
 
-const defaultTheme = {
-  palette: {
-    type: 'dark' 
-  }
+
+
+
+// Component Function
+const Themer = ({ children }) => {
+  // themeBuilder function
+  const themeBuilder = ( darkMode, themeOverwrites ) => {
+    if( darkMode === true ) {
+      themeOverwrites.palette.type = 'dark'
+    }
+    else {
+      themeOverwrites.palette.type = 'light'
+    }
+    return createMuiTheme( themeOverwrites )
+}
+  
+  // State Default Theme
+  const [ theme, setTheme ] = useState( themeBuilder( presetThemes.defaultTheme.darkMode, presetThemes.defaultTheme.overWrites ))
+
+  
+const themeSetter = ( darkMode, themeOverwrites ) => {
+  setTheme( themeBuilder ( darkMode, themeOverwrites ))
 }
 
 
-const Themer = ({ children }) => {
-  // State Vars
-  const [ theme, setTheme ] = useState( createMuiTheme( defaultTheme ) )
-  const [ darkMode, setDarkMode ] = useState( false )
-  const [ paletteOverwrites, setPaletteOverwrites ] = useState({ })
-  const [ typographyOverwrites, setTypographyOverwrites ] = useState({ })
-
-  const customTheme = themeOptions => {
-    setTheme(
-      responsiveFontSizes(
-        createMuiTheme({
-        palette: {
-          type: darkMode ? 'dark' : 'light',
-          ...paletteOverwrites,
-        },
-        typography: {
-          ...typographyOverwrites,
-        }})
-      )
-    )
-  } 
-
-
   return (
-    <ThemeContext.Provider value={{ darkMode, paletteOverwrites, typographyOverwrites, customTheme }}>
+    <ThemeContext.Provider value={{ theme, themeSetter }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {children}

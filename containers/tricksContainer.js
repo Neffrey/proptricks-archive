@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 
 // MUI
-import { Grid } from '@material-ui/core'
+import { Container, Grid } from '@material-ui/core'
 
 // Components
 import TricksCard from '../components/tricksCard'
@@ -23,12 +23,14 @@ const TricksContainer = () => {
     // Success
     else if (data) {
         return (
-            <Grid container spacing={2} justify="center">
-                <Grid item xs={12}>
-                    <TotalTricks trickData={data.tricks.nodes} />
+            <Container maxWidth="md">
+                <Grid container spacing={2} justify="center">
+                    <Grid item xs={12}>
+                        <TotalTricks trickData={data.tricks.nodes} />
+                    </Grid>
+                    <TricksCard trickData={data.tricks.nodes} />
                 </Grid>
-                <TricksCard trickData={data.tricks.nodes} />
-            </Grid>
+            </Container>
         )
     }
     else return <p>Something went wrong</p>

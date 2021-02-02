@@ -3,22 +3,38 @@ import React from 'react'
 import Link from 'next/link'
 
 // MUI
-import Grid from '@material-ui/core/Grid'
-import Avatar from '@material-ui/core/Avatar'
-import Typography from '@material-ui/core/Typography'
+import { Grid, Avatar, Typography } from '@material-ui/core/'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+
+
 
 
 // Component Function
-function headerLogoWText({ color }) {
+const headerLogoWText = () => {
+    
+    // Styles
+    const theme = useTheme()
+    const useStyles = makeStyles({
+        header: {
+          color: theme.palette.text.primary,
+        },
+        a: {
+            textDecoration:'none'
+        }
+      })
+    const classes = useStyles()
+
+
+    // Render
     return (
         <Link href="/">
-            <a style={{ color: color, textDecoration:'none' }}>
+            <a className={ classes.a }>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item>
                         <Avatar variant="square" src="/rgbcmyfol-wbrdr-750.png" />
                     </Grid>
                     <Grid item>
-                        <Typography variant="h6">PropTricks</Typography>
+                        <Typography className={ classes.header } variant="h5">PropTricks</Typography>
                     </Grid>
                 </Grid>
             </a>

@@ -5,16 +5,15 @@ import Link from 'next/link'
 
 // Components
 import TricksContainer from '../containers/tricksContainer'
-import { Container } from 'react-bootstrap'
+import { Container } from '@material-ui/core'
 
 
 
 const home = () => {
   return (
-    <Container fluid="md">
+    <Container maxWidth="md">
       <Head>
         <title>Prop Tricks: Movement Database</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>        
 
       <main>

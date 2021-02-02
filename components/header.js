@@ -4,14 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // MUI
-import Grid from '@material-ui/core/Grid'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
+import { Grid, AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 // icons
@@ -36,10 +29,17 @@ import HeaderLogoWText from './headerLogoWText'
 
 // Component Function
 const Header = ( props ) => {
-
-    // Theme
+    
+    // Styles
     const theme = useTheme()
+    const useStyles = makeStyles({
+        icon: {
+          color: theme.palette.text.primary,
+        },
+      })
+    const classes = useStyles()
     console.log(theme)
+
     // Router
     const router = useRouter()
     
@@ -72,10 +72,10 @@ const Header = ( props ) => {
                                 </IconButton>
                             </Grid>
                             <Grid item>
-                                <HeaderLogoWText color="#fff" />
+                                <HeaderLogoWText />
                             </Grid>
                             <Grid item>
-                                <Link href="/login"><a style={{ color: '#fff' }}><AccountCircle fontSize="large"/></a></Link>
+                                <Link href="/login"><a ><AccountCircle className={classes.icon} fontSize="large"/></a></Link>
                             </Grid>
                         </Grid>
                     </Toolbar>
@@ -92,7 +92,7 @@ const Header = ( props ) => {
             >
                 <List style={{minWidth:"200px"}}>
                     <ListItem>
-                        <HeaderLogoWText color="#212121" />
+                        <HeaderLogoWText />
                     </ListItem>
                     <ListItem href="/testerhref" button onClick={ () => handleDrawerLink("/login") }>
                         <ListItemText primary="Login" />

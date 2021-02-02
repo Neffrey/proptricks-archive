@@ -1,9 +1,10 @@
 // Framework
 import React, { useState, useContext } from 'react'
-import { Button, Modal } from 'react-bootstrap'
+import { Button, Dialog, DialogTitle, Typography } from '@material-ui/core'
 
 // Context
 import { AuthContext, authStore } from '../contexts/authContext'
+import { useTheme } from '@material-ui/core/styles'
 
 //Crypto
 import { decrypt } from '../lib/crypto'
@@ -15,37 +16,31 @@ const TokensModal = () => {
     const { currentAuth, currentRefresh } = useContext(AuthContext)
 
 
-    const [show, setShow] = useState(false)
+    const [open, setOpen] = useState(false)
   
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
+    const handleClose = () => setOpen(false)
+    const handleOpen = () => setOpen(true)
   
     return (
         <>
-        <Button variant="primary" onClick={handleShow}>
-            Launch demo modal
+        <Button color="primary" variant="contained" onClick={handleOpen}>
+            Token modal
         </Button>
 
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Tokens</Modal.Title>
-            </Modal.Header>
-            <Modal.Body style={{wordBreak:'break-all'}}>
-                <h3>CurrentAuth</h3>
-                <p> {currentAuth ? currentAuth : "no CurrentAuth"}</p>
-                <h3>AuthDecrypted</h3>
-                <p> {authStore.get( 'auth' ) ? decrypt( authStore.get('auth'), authKey ) : "no AuthDecrypted" }</p>
-                <h3>CurrentRefresh</h3>
-                <p> {currentRefresh ? currentRefresh : "no CurrentRefresh"}</p>
-                <h3>RefreshDecrypted</h3>
-                <p> {authStore.get( 'refresh' ) ? decrypt( authStore.get('refresh'), refreshKey ) : "no refreshDecrypted" }</p>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="primary" onClick={handleClose}>
-                    Close
-                </Button>
-            </Modal.Footer>
-        </Modal>
+        <Dialog open={open} onClose={handleClose} style={{wordBreak:'break-all', padding:'32px'}}>
+            <DialogTitle >Token Data</DialogTitle>
+            <h3>CurrentAuth</h3>
+            <p> {currentAuth ? currentAuth : "no CurrentAuth"}</p>
+            <h3>AuthDecrypted</h3>
+            <p> {authStore.get( 'auth' ) ? decrypt( authStore.get('auth'), authKey ) : "no AuthDecrypted" }</p>
+            <h3>CurrentRefresh</h3>
+            <p> {currentRefresh ? currentRefresh : "no CurrentRefresh"}</p>
+            <h3>RefreshDecrypted</h3>
+            <p> {authStore.get( 'refresh' ) ? decrypt( authStore.get('refresh'), refreshKey ) : "no refreshDecrypted" }</p>
+            <Button color="secondary" variant="contained" onClick={handleClose} fullWidth>
+                Close
+            </Button>
+        </Dialog>
         </>
     )
 }

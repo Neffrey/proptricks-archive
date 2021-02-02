@@ -1,15 +1,19 @@
 // Framework
 import React, { useContext } from 'react'
-import { Col, Container, Row, Button } from 'react-bootstrap'
+import { useMutation } from '@apollo/client'
+import { USER_LOGIN } from '../gql/userLogin'
+
+// Styles
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 // Context
 import { AuthContext, authStore, refreshKey, userAuthenticated } from '../contexts/authContext'
 
-// GQL
-import { useMutation } from '@apollo/client'
-import { USER_LOGIN } from '../gql/userLogin'
+// Lib Components
+import { Button, Checkbox, Container, FormControlLabel, Grid, Paper, TextField, Typography } from '@material-ui/core/'
+import { ChromePicker } from 'react-color'
 
-// Components
+// My Components
 import TokensModal from '../components/tokensModal'
 
 const account = () => {
@@ -19,10 +23,6 @@ const account = () => {
     
     // GQL
     const [ userLoginMutation ] = useMutation(USER_LOGIN)
-
-    // Current Auth button
-    //const [ AuthDecrypted, setCurrentAuth ] = useState("")
-    //const [ RefreshDecrypted, setCurrentRefresh ] = useState("")
 
     // Handle Clicks
     const handleLoginTestClick = res => {
@@ -42,43 +42,55 @@ const account = () => {
 
     
     return (
-        <Container fluid="md">
-            <Row>
-                <Col xs={12} md={9} style={{ wordBreak:"break-all" }}>
+        <Container maxWidth="md">
+            <Grid container spacing={2} alignItems="center" justify="center">
+                <Grid item xs={12} md={9} style={{ wordBreak:"break-all" }}>
                     <h1>My Account</h1>
                     <TokensModal />
-                </Col>
-                <Col xs={12} md={3}>
-                    <Button
-                        block
-                        variant="outline-success"
+                </Grid>
+                <Grid item xs={12} md={3}>
+                    <Button 
+                        color="primary" 
+                        variant="contained"
+                        size="large"
+                        // variant="outline-success"
                         onClick={ handleLoginTestClick }
+                        fullWidth
                     >
                         Login Test
                     </Button>
-                    <Button
-                        block
-                        variant="outline-primary"
+                    <Button 
+                        color="secondary" 
+                        variant="contained"
+                        size="large"
+                        // variant="outline-primary"
                         onClick={ handleRefreshTokenClick }
+                        fullWidth
                     >
                         Refresh Tokens
                     </Button>
-                    <Button
-                        block
-                        variant="outline-info"
+                    <Button 
+                        color="primary" 
+                        variant="contained"
+                        size="large"
+                        // variant="outline-info"
                         onClick={ handleAuthenticateClick }
+                        fullWidth
                     >
                         Authenticate
                     </Button>
-                    <Button
-                        block
-                        variant="outline-danger"
+                    <Button 
+                        color="secondary" 
+                        variant="contained"
+                        size="large"
+                        // variant="outline-danger"
                         onClick={logout}
+                        fullWidth
                     >
                         Logout
                     </Button>
-                </Col>
-            </Row>
+                </Grid>
+            </Grid>
         </Container>
     )
 }

@@ -7,8 +7,8 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          {/* PWA primary color */}
           <meta name="theme-color" content="#333" />
+          <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>
           <Main />

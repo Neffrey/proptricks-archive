@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react'
 import Link from 'next/link'
 
 // MUI
-import { Button, Checkbox, FormControlLabel, Grid, Paper, TextField } from '@material-ui/core/'
+import { Button, Checkbox, Container, FormControlLabel, Grid, Paper, TextField, Typography } from '@material-ui/core/'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 // GQL
@@ -47,67 +47,67 @@ const LoginForm = () => {
         
         
         // Send Mutation
-        login( userLoginMutation({variables: { username: email, password: password}}), remember)
+        login( userLoginMutation({ variables: { username: email, password: password }}), remember )
         
     }
 
-
+    // Render
     return (
-        <Grid container spacing={3} alignItems="center" justify="center" style={{ maxWidth:"700px", padding:"24px" }}>
-
-            <Grid item xs={12}>
-                <h1 style={{textAlign:"center"}}>USER LOGIN</h1>
+        <Container maxWidth="sm">
+            <Grid container spacing={3} alignItems="center" justify="center">
+                <Grid item xs={12}>
+                    <Typography variant="h1" align="center">USER LOGIN</Typography>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                        id="email-input"
+                        label="Email"
+                        value={email}
+                        onChange={ e => setEmail(e.target.value)}
+                        variant="outlined"
+                        fullWidth
+                        required
+                    />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                        id="password-input"
+                        label="Password"
+                        type="password"
+                        value={password}
+                        onChange={ e => setPassword(e.target.value)}
+                        variant="outlined"
+                        fullWidth
+                        required
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox color="primary" checked={remember} onChange={ e => setRemember(e.target.checked)} name="remember-me" />}
+                        label="Remember Me"
+                        style={{ paddingLeft:"20px" }}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <Link href="/reset-password" passHref>
+                        <Typography variant="body1" component="a" style={{ alignText: "right", paddingRight: "20px" }}>Forgot Password?</Typography>
+                    </Link>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button  
+                        color="primary" 
+                        variant="contained"
+                        disabled={ !validateForm() } 
+                        onClick={ handleSubmit }
+                        size="large"
+                    >
+                        Login
+                    </Button>
+                </Grid>
             </Grid>
-            
-            <Grid item xs={12} md={6}>
-                <TextField
-                    id="email-input"
-                    label="Email"
-                    value={email}
-                    onChange={ e => setEmail(e.target.value)}
-                    variant="outlined"
-                    required
-                />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-                <TextField
-                    id="password-input"
-                    label="Password"
-                    type="password"
-                    value={password}
-                    onChange={ e => setPassword(e.target.value)}
-                    variant="outlined"
-                    required
-                />
-            </Grid>
-            
-            <Grid item xs={6}>
-                <FormControlLabel
-                    control={
-                        <Checkbox color="primary" checked={remember} onChange={ e => setRemember(e.target.checked)} name="remember-me" />}
-                    label="Remember Me"
-                />
-            </Grid>
-            
-            <Grid item xs={6}>
-                <Link href="/reset-password">
-                    <a>Forgot Password?</a>
-                </Link>
-            </Grid>
-
-            <Grid item xs={12}>
-                <Button  
-                    color="primary" 
-                    variant="contained"
-                    disabled={ !validateForm() } 
-                    onClick={ handleSubmit }
-                >
-                    Login
-                </Button>
-            </Grid>
-        </Grid>
+        </Container>
     )
-  }
-  
-  export default LoginForm
+}
+
+export default LoginForm

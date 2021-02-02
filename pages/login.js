@@ -1,6 +1,6 @@
 // Framework
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Box } from '@material-ui/core'
 
 // Components
 import LoginForm from '../components/loginForm'
@@ -8,13 +8,9 @@ import LoginForm from '../components/loginForm'
 
 const Login = () => {
     return (
-        <Container fluid>
-            <Row>
-                <Col>
-                    <LoginForm />
-                </Col>
-            </Row>
-        </Container>
+        <Box id="login-hero">
+            <LoginForm />
+        </Box>
     )
 }
 
