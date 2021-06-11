@@ -1,6 +1,5 @@
 // Framework
 import React from 'react'
-import { Box } from '@material-ui/core'
 
 // Components
 import LoginForm from '../components/loginForm'
@@ -8,9 +7,7 @@ import LoginForm from '../components/loginForm'
 
 const Login = () => {
     return (
-        <Box id="login-hero">
-            <LoginForm />
-        </Box>
+        <LoginForm />
     )
 }
 

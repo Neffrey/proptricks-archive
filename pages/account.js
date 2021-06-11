@@ -42,10 +42,12 @@ const account = () => {
 
     
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
             <Grid container spacing={2} alignItems="center" justify="center">
-                <Grid item xs={12} md={9} style={{ wordBreak:"break-all" }}>
-                    <h1>My Account</h1>
+                <Grid item xs={12} md={12} >
+                    <Typography variant="h1">My Account</Typography>
+                </Grid>
+                <Grid item xs={12} md={9}>
                     <TokensModal />
                 </Grid>
                 <Grid item xs={12} md={3}>
@@ -53,7 +55,6 @@ const account = () => {
                         color="primary" 
                         variant="contained"
                         size="large"
-                        // variant="outline-success"
                         onClick={ handleLoginTestClick }
                         fullWidth
                     >
@@ -63,7 +64,6 @@ const account = () => {
                         color="secondary" 
                         variant="contained"
                         size="large"
-                        // variant="outline-primary"
                         onClick={ handleRefreshTokenClick }
                         fullWidth
                     >
@@ -73,7 +73,6 @@ const account = () => {
                         color="primary" 
                         variant="contained"
                         size="large"
-                        // variant="outline-info"
                         onClick={ handleAuthenticateClick }
                         fullWidth
                     >
@@ -83,7 +82,6 @@ const account = () => {
                         color="secondary" 
                         variant="contained"
                         size="large"
-                        // variant="outline-danger"
                         onClick={logout}
                         fullWidth
                     >

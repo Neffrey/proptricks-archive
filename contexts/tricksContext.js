@@ -2,7 +2,7 @@
 import React, { createContext, useState } from 'react'
 
 
-export const TricksContext = createContext({});
+export const TricksContext = createContext({})
 
 export const TricksContextProvider = ({children}) => {
     const [ tricks, setTricks ] = useState({})

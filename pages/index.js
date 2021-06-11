@@ -2,14 +2,15 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-
-// Components
-import TricksContainer from '../containers/tricksContainer'
+// Lib Components
 import { Container } from '@material-ui/core'
 
+// PT Components
+import TricksContainer from '../containers/tricksContainer'
 
-
+// Page Function
 const home = () => {
+  // Render
   return (
     <Container maxWidth="md">
       <Head>

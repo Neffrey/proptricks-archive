@@ -22,12 +22,23 @@ export const presetThemes = {
                 },
             },
             typography: {
-                fontSize: 16
+                h1: {
+                    fontSize:'4rem',
+                    fontWeight:700,
+                },
+                h2: {
+                    fontSize:'3.2rem',
+                    fontWeight:700,
+                },
+                h3: {
+                    fontSize:'2rem',
+                    fontWeight:500,
+                },
             },
         },
     },
     protanopiaTheme: {
-        Title: "Protanopia Theme",
+        Title: 'Protanopia Theme',
         palette: {
             primary: {
                 main: '#6073b1',
@@ -40,7 +51,7 @@ export const presetThemes = {
         },
     },
     dueteranopiaTheme: {
-        Title: "Dueteranopia Theme",
+        Title: 'Dueteranopia Theme',
         palette: {
             primary: {
                 main: '#6f7498',

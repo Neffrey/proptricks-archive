@@ -1,6 +1,6 @@
 // Framework
 import React, { useContext } from 'react'
-import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache, useMutation } from '@apollo/client'
+import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache, useMutation, gql } from '@apollo/client'
 import { authStore } from '../contexts/authContext'
 
 
@@ -16,7 +16,7 @@ import { decrypt } from '../lib/crypto'
 import { authKey } from '../lib/keys'
 
 // HttpLink
-const httpLink = new HttpLink({uri: 'https://fadb.neffrey.com/graphql'})
+const httpLink = new HttpLink({uri: 'https://pt.neffrey.com/graphql'})
 
 // Auth Header Middleware
 const authMiddleware = new ApolloLink((operation, forward) => {
