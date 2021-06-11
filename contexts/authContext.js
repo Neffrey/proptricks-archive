@@ -77,6 +77,7 @@ const authContextProvider = ({ children }) => {
         
         // Handle Mutaion Results
         
+        console.log('mutationPromise',mutationPromise)
         mutationPromise.then(
             resolve => {
                 // Store Auth tokens
@@ -132,7 +133,6 @@ const authContextProvider = ({ children }) => {
                     setCurrentAuth( resolve.data.refreshJwtAuthToken.authToken )
                     authStore.set( 'auth', encrypt( resolve.data.refreshJwtAuthToken.authToken, authKey ))
                     authStore.set( 'authTimer', createTimer( new Date() ))
-                    console.log( "RefreshMutationPromise" )
                 },
                 // Todo handle error
                 error => console.log(error)
