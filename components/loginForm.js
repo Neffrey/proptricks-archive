@@ -13,7 +13,7 @@ import { USER_LOGIN } from '../gql/userLogin'
 
 
 // Context
-import { AuthContext } from '../contexts/authContext'
+import { UserContext } from '../contexts/userContext'
   
 
 // Component Function
@@ -23,7 +23,7 @@ const LoginForm = () => {
     const theme = useTheme()
 
     // Context
-    const { login } = useContext(AuthContext)
+    const { login } = useContext(UserContext)
 
     // GQL
     const [ userLoginMutation ] = useMutation(USER_LOGIN)

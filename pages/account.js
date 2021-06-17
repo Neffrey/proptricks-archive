@@ -7,7 +7,7 @@ import { USER_LOGIN } from '../gql/userLogin'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 // Context
-import { AuthContext, authStore, refreshKey, userAuthenticated } from '../contexts/authContext'
+import { UserContext, userStore, refreshKey, userAuthenticated } from '../contexts/userContext'
 
 // Lib Components
 import { Button, Checkbox, Container, FormControlLabel, Grid, Paper, TextField, Typography } from '@material-ui/core/'
@@ -19,7 +19,7 @@ import TokensModal from '../components/tokensModal'
 const account = () => {
 
     // Context
-    const { login, logout, refreshToken, userAuthenticated } = useContext(AuthContext)
+    const { login, logout, refreshToken, userAuthenticated } = useContext(UserContext)
     
     // GQL
     const [ userLoginMutation ] = useMutation(USER_LOGIN)

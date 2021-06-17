@@ -1,14 +1,14 @@
 // Framework
 import React, { useContext } from 'react'
 import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache, useMutation, gql } from '@apollo/client'
-import { authStore } from '../contexts/authContext'
+import { userStore } from '../contexts/userContext'
 
 
 // GQL
 import { USER_LOGIN } from '../gql/userLogin'
 
 // Context
-import { AuthContext } from '../contexts/authContext'
+import { UserContext } from '../contexts/userContext'
 
 
 // Crypto
@@ -20,8 +20,8 @@ const httpLink = new HttpLink({uri: 'https://pt.neffrey.com/graphql'})
 
 // Auth Header Middleware
 const authMiddleware = new ApolloLink((operation, forward) => {
-    if( authStore.get('authTime') && authStore.get('authEncrypted')) {
-        if ( Date.now() > authStore.get('authTime') ) {
+    if( userStore.get('authTime') && userStore.get('authEncrypted')) {
+        if ( Date.now() > userStore.get('authTime') ) {
             // Renew Auth Token 
             refreshToken()
             // setAuthTimer
@@ -29,7 +29,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
         operation.setContext({
             headers: {
-                authorization: decrypt(authStore.get('authEncrypted'), authKey),
+                authorization: decrypt(userStore.get('authEncrypted'), authKey),
             }
         })
     }

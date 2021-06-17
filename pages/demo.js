@@ -6,7 +6,7 @@ import { makeStyles, useTheme, hexToRgb } from '@material-ui/core/styles'
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Checkbox, Container, FormControlLabel, Grid, Paper, TextField, Typography } from '@material-ui/core/'
 
 // Context
-import { AuthContext, authStore, refreshKey, userAuthenticated } from '../contexts/authContext'
+import { UserContext, userStore, refreshKey, userAuthenticated } from '../contexts/userContext'
 
 // Lib Components
 import { ChromePicker } from 'react-color'

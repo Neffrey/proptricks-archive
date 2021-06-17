@@ -8,7 +8,7 @@ import React from 'react'
 
 // Contexts
 import Apollo from '../components/apollo'
-import Auth from '../contexts/authContext'
+import Auth from '../contexts/userContext'
 import Themer from '../contexts/themeContext'
 
 // Components

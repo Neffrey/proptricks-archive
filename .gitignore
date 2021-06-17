@@ -39,4 +39,4 @@ yarn-error.log*
 /designIdeas/
 
 # lib
-/lib/
+# /lib/
