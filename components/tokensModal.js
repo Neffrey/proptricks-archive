@@ -4,11 +4,7 @@ import { Button, Dialog, DialogTitle, Typography } from '@material-ui/core'
 
 // Context
 import { UserContext, userStore } from '../contexts/userContext'
-import { useTheme } from '@material-ui/core/styles'
 
-//Crypto
-import { decrypt } from '../lib/crypto'
-import { authKey, refreshKey } from '../lib/keys'
 
 // Component Function
 const TokensModal = () => {
@@ -32,11 +28,11 @@ const TokensModal = () => {
             <h3>CurrentAuth</h3>
             <p> {currentAuth ? currentAuth : "no CurrentAuth"}</p>
             <h3>AuthDecrypted</h3>
-            <p> {userStore.get( 'auth' ) ? decrypt( userStore.get('auth'), authKey ) : "no AuthDecrypted" }</p>
+            <p> {userStore.get( 'auth' ) ? userStore.get( 'auth' ) : "no AuthDecrypted" }</p>
             <h3>CurrentRefresh</h3>
             <p> {currentRefresh ? currentRefresh : "no CurrentRefresh"}</p>
             <h3>RefreshDecrypted</h3>
-            <p> {userStore.get( 'refresh' ) ? decrypt( userStore.get('refresh'), refreshKey ) : "no refreshDecrypted" }</p>
+            <p> {userStore.get( 'refresh' ) ? userStore.get('refresh') : "no refreshDecrypted" }</p>
             <Button color="secondary" variant="contained" onClick={handleClose} fullWidth>
                 Close
             </Button>

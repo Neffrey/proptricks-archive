@@ -8,7 +8,7 @@ import React from 'react'
 
 // Contexts
 import Apollo from '../components/apollo'
-import Auth from '../contexts/userContext'
+import User from '../contexts/userContext'
 import Themer from '../contexts/themeContext'
 
 // Components
@@ -33,7 +33,7 @@ function App({ Component, pageProps }) {
 
   return (
     <Apollo>
-      <Auth>
+      <User>
         <Themer>
           <Header />
           <BodyBox>
@@ -41,7 +41,7 @@ function App({ Component, pageProps }) {
           </BodyBox>
           <Footer />
         </Themer>
-      </Auth>
+      </User>
     </Apollo>
   )
 }

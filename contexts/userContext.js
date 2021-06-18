@@ -1,7 +1,6 @@
 // Framework
 import React, { createContext, useState } from 'react'
 import { useRouter } from 'next/router'
-import { encrypt, decrypt } from '../lib/crypto'
 
 
 // GQL
@@ -82,14 +81,14 @@ const userContextProvider = ({ children }) => {
             resolve => {
                 // Store Auth tokens
                 setCurrentAuth( resolve.data.login.authToken )
-                userStore.set( 'auth', encrypt( resolve.data.login.authToken, authKey ))
+                userStore.set( 'auth', resolve.data.login.authToken )
 
 
                 // Store Refresh
                 setCurrentRefresh( resolve.data.login.refreshToken )
                 if(remember) {
                     console.log( "Remember Yes" )
-                    userStore.set( 'refresh', encrypt( resolve.data.login.refreshToken, refreshKey ))
+                    userStore.set( 'refresh', resolve.data.login.refreshToken )
                 }
                 console.log( "Login Mutation" )
             },
@@ -123,7 +122,7 @@ const userContextProvider = ({ children }) => {
 
         // Check for RefreshToken
         if ( currentRefresh ) { token = currentRefresh }
-        else if ( userStore.get( 'refresh' )) { token = decrypt( userStore.get( 'refresh' ), refreshKey ) }
+        else if ( userStore.get( 'refresh' )) { token = userStore.get( 'refresh' )}
 
         // send mutation if a key exists
         if ( token ) {
@@ -131,7 +130,7 @@ const userContextProvider = ({ children }) => {
                 resolve => {
                     // Store Auth tokens
                     setCurrentAuth( resolve.data.refreshJwtAuthToken.authToken )
-                    userStore.set( 'auth', encrypt( resolve.data.refreshJwtAuthToken.authToken, authKey ))
+                    userStore.set( 'auth', resolve.data.refreshJwtAuthToken.authToken )
                     userStore.set( 'authTimer', createTimer( new Date() ))
                 },
                 // Todo handle error

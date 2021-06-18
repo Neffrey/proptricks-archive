@@ -38,5 +38,6 @@ yarn-error.log*
 # Design Ideas
 /designIdeas/
 
-# lib
-# /lib/
+# Crypto
+/lib/crypto.js
+/lib/keys.js
