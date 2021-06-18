@@ -11,9 +11,6 @@ import { REFRESH_TOKENS } from '../gql/refreshTokens'
 export const userStore = require('store')
 export const UserContext = createContext({})
 
-// Keys
-import { authKey,refreshKey } from '../lib/keys'
-
 
 
 // Provider Component
