@@ -90,7 +90,7 @@ const LoginForm = () => {
                     />
                 </Grid>
                 <Grid item xs={6}>
-                    <Link href="/reset-password" passHref>
+                    <Link href="/account/forgot-password" passHref>
                         <Typography variant="body1" component="a" style={{ alignText: "right", paddingRight: "20px" }}>Forgot Password?</Typography>
                     </Link>
                 </Grid>

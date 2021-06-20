@@ -1,26 +1,32 @@
 // Framework
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useMutation } from '@apollo/client'
-import { USER_LOGIN } from '../gql/userLogin'
+import { USER_LOGIN } from '../../gql/userLogin'
 
 // Styles
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 // Context
-import { UserContext, userStore, refreshKey, userAuthenticated } from '../contexts/userContext'
+import { UserContext, userStore, refreshKey, userAuthenticated } from '../../contexts/userContext'
 
 // Lib Components
-import { Button, Checkbox, Container, FormControlLabel, Grid, Paper, TextField, Typography } from '@material-ui/core/'
+import { Button, Checkbox, Container, FormControlLabel, Grid, MenuItem, MenuList, Paper, TextField, Typography } from '@material-ui/core/'
 import { ChromePicker } from 'react-color'
 
 // My Components
-import TokensModal from '../components/tokensModal'
+import TokensModal from '../../components/tokensModal'
+import AccDashWindow from '../../components/accDashWindow'
 
+
+// Functional Component
 const account = () => {
 
     // Context
     const { login, logout, refreshToken, userAuthenticated } = useContext(UserContext)
     
+    // State
+    const [ dashWindow, setDashWindow ] = useState("profile")
+
     // GQL
     const [ userLoginMutation ] = useMutation(USER_LOGIN)
 
@@ -40,6 +46,15 @@ const account = () => {
         userAuthenticated()
     }
 
+    // Handle Account Page Accordion
+    const handleProfile = () => {
+        setDashWindow("profile")
+        
+    }
+
+    const handleTricks = () => {
+        setDashWindow("tricks")
+    }
     
     return (
         <Container maxWidth="lg">
@@ -87,6 +102,28 @@ const account = () => {
                     >
                         Logout
                     </Button>
+                </Grid>
+            </Grid>
+            {/* END Token Troubleshooting section
+                START MY ACCOUNT PAGE */}
+            <Grid container spacing={2} alignItems="left" justify="left">
+                <Grid item xs={12} md={3} >
+                    <paper>
+                        <MenuList>
+                            <MenuItem onClick={ handleProfile }>
+                                <Typography variant="h5" component="h3">My Profile</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={ handleTricks }>
+                                <Typography variant="h5" component="h3">My Tricks</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={ handleTricks }>
+                                <Typography variant="h5" component="h3">Saved Tricks</Typography>
+                            </MenuItem>
+                        </MenuList>
+                    </paper>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                    <AccDashWindow view={dashWindow}/>
                 </Grid>
             </Grid>
         </Container>
