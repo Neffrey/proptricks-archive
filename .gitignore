@@ -34,7 +34,7 @@ yarn-error.log*
 .vercel
 
 # WP Plugins
-/wp-pligins/
+/wp-plugins/
 
 # Design Ideas
 /designIdeas/
