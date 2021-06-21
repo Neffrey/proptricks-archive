@@ -10,6 +10,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { useMutation } from '@apollo/client'
 import { RESET_USER_PASSWORD } from '../../../gql/resetUserPassword'
 
+// My Components
+import Snackbar from '../../../components/snackbar'
 
 // Component
 const ResetPassword = () => {
@@ -18,29 +20,14 @@ const ResetPassword = () => {
     let key = ""
     const router = useRouter()
     const { params } = router.query
-    console.log("before effect")
-    console.log("router", router )
-    console.log("params", params )
-    console.log("login", login )
-    console.log("key", key )
-    useEffect(() => {
-        console.log("effect params", params )
-        if ( params ) {
-        }
-        console.log("during effect")
-        console.log("router", router )
-        console.log("login", login )
-        console.log("key", key )
-    },[])
 
-    // login = router.query.params[0]
-    // key = router.query.params[1]
     // GQL
     const [ resetUserPasswordMutation ] = useMutation(RESET_USER_PASSWORD)
 
     // States
     const [ password, setPassword ] = useState("")
     const [ submitted, setSubmitted ] = useState(false)
+    const [ error, setError ] = useState(false)
 
     // Validate before submit
     function validateForm() {
@@ -51,14 +38,34 @@ const ResetPassword = () => {
     const handleSubmit = event => {
         // Prevent Default
         event.preventDefault()
+
+        // Set current value of url query params
+        if( typeof params[0] === "string" ) {
+            login = params[0]
+        }
+        if( typeof params[1] === "string" ) {
+            key = params[1]
+        }
         
         // Send Mutation
-        resetUserPasswordMutation({ variables: { login:router.query.params[0], password: password, key:router.query.params[1] }})
+        resetUserPasswordMutation({ variables: { login:login, password: password, key:key }})
+            .then( 
+                res => { console.log( res )}
+            )
+            .catch( err => { 
+                setError( err )
+                console.log( err )
+            })
+
 
         // Set Submitted state
         setSubmitted(true)
     }
 
+    // Submit Message
+    let submitMessage
+    if( !error ){ submitMessage = <Typography variant="h3">Your password has been reset</Typography> }
+    else { submitMessage = <Typography variant="h3">Uh oh, there was an error.<br/>{error.toString().substr(6)}</Typography> }
     
 
 
@@ -103,7 +110,7 @@ const ResetPassword = () => {
             <Container maxWidth="sm">
                 <Grid container spacing={3} alignItems="center" justify="center">
                     <Grid item xs={12}>
-                        <Typography variant="h3">Your password has been reset</Typography>
+                        { submitMessage }
                     </Grid>
                 </Grid>
             </Container>

@@ -38,7 +38,7 @@ const Header = ( props ) => {
         },
       })
     const classes = useStyles()
-    console.log(theme)
+    // console.log(theme)
 
     // Router
     const router = useRouter()
