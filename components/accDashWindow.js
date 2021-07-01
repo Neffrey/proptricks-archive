@@ -15,28 +15,40 @@ import { ChromePicker } from 'react-color'
 
 // My Components
 import TokensModal from '../components/tokensModal'
-
+import AccDashProfile from './accDashProfile'
+import AccDashMyTricks from './accDashMyTricks'
+import AccDashSavedTricks from './accDashSavedTricks'
 
 // Functional Component
 const accDashWindow = ({ view }) => {
+
+    const handleAddTrick = () => {
+
+    }
+
+    // Render Switch
     switch( view ) {
         case "profile":   
             return(
                 <Grid container spacing={2} alignItems="left" justify="left">
                     <Grid item xs={12}>
-                        <Paper>
-                            <Typography variant="h2">WELCOME TO YOUR PROFILE BITCH</Typography>
-                        </Paper>
+                        <AccDashProfile />
                     </Grid>
                 </Grid>
             )
-        case "tricks":
+        case "myTricks":
             return(
                 <Grid container spacing={2} alignItems="left" justify="left">
                     <Grid item xs={12}>
-                        <Paper>
-                            <Typography variant="h2">TRICKS ARE FOR BITCHES</Typography>
-                        </Paper>
+                        <AccDashMyTricks />
+                    </Grid>
+                </Grid>
+            )
+        case "savedTricks":
+            return(
+                <Grid container spacing={2} alignItems="left" justify="left">
+                    <Grid item xs={12}>
+                        <AccDashSavedTricks />
                     </Grid>
                 </Grid>
             )

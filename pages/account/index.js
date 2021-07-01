@@ -51,9 +51,11 @@ const account = () => {
         setDashWindow("profile")
         
     }
-
-    const handleTricks = () => {
-        setDashWindow("tricks")
+    const handleMyTricks = () => {
+        setDashWindow("myTricks")
+    }
+    const handleSavedTricks = () => {
+        setDashWindow("savedTricks")
     }
     
     return (
@@ -113,10 +115,10 @@ const account = () => {
                             <MenuItem onClick={ handleProfile }>
                                 <Typography variant="h5" component="h3">My Profile</Typography>
                             </MenuItem>
-                            <MenuItem onClick={ handleTricks }>
+                            <MenuItem onClick={ handleMyTricks }>
                                 <Typography variant="h5" component="h3">My Tricks</Typography>
                             </MenuItem>
-                            <MenuItem onClick={ handleTricks }>
+                            <MenuItem onClick={ handleSavedTricks }>
                                 <Typography variant="h5" component="h3">Saved Tricks</Typography>
                             </MenuItem>
                         </MenuList>

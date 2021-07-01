@@ -3,8 +3,8 @@ import { gql } from '@apollo/client'
 
 
 export const UPDATE_TRICK = gql`
-    mutation UpdateTrick( $title: String! $status: String, $youtubeLink: String, $trickNames: Int, $trickTags: Int ) {
-        UpdateTrick(input: { title: $title, status: $status, youtubeLink: $youtubeLink, trickNames: $trickNames, trickTags: $trickTags }) {
+    mutation UpdateTrick( $id: ID!, $title: String, $status: String, $youtubeLink: String, $trickNames: Int, $trickTags: Int ) {
+        UpdateTrick(input: { $id: id, title: $title, status: $status, youtubeLink: $youtubeLink, trickNames: $trickNames, trickTags: $trickTags }) {
             trick {
                 id
                 title
