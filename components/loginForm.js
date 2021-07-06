@@ -38,18 +38,17 @@ const LoginForm = () => {
         return email.length > 0 && password.length > 0
     }
     
-    // Handle Submit
+    // Handlers
     const handleSubmit = event => {
-
         //console.log("handler fired")
         event.preventDefault()
         //console.log(remember)
         
-        
         // Send Mutation
         login( userLoginMutation({ variables: { username: email, password: password }}), remember )
-        
     }
+
+
 
     // Render
     return (
@@ -104,6 +103,20 @@ const LoginForm = () => {
                     >
                         Login
                     </Button>
+                </Grid>
+                <Grid item xs={6}>
+                    <Typography variant="h5" style={{ alignText: "center" }}>Don't have an account yet?</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                    <Link href="/account/create-account" passHref>
+                        <Button  
+                            color="primary" 
+                            variant="contained"
+                            size="large"
+                        >
+                            Create Account
+                        </Button>
+                    </Link>
                 </Grid>
             </Grid>
         </Container>

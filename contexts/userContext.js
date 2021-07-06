@@ -21,9 +21,11 @@ const userContextProvider = ({ children }) => {
     // GQL
     const [ refreshTokenMutation ] = useMutation( REFRESH_TOKENS )
 
-    // State Vars
+    // Auth State Vars
     const [ currentAuth, setCurrentAuth ] = useState("")
     const [ currentRefresh, setCurrentRefresh ] = useState("")
+
+    // User S
 
 
 
