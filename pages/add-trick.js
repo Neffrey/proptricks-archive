@@ -26,7 +26,6 @@ const addTrick = () => {
     
     // State
     //const [ chip, setChip ] = useState([])
-    const [ title, setTitle ] = useState("")
     const [ status, setStatus ] = useState(false)
     const [ youtubeLink, setYoutubeLink ] = useState("")
     const [ trickNames, setTrickNames ] = useState([])
@@ -37,31 +36,16 @@ const addTrick = () => {
 
     // Validate form
     const validateForm = () => {
-        return title.length > 0 && youtubeLink.length > 0 && trickNames && trickTags
+        return youtubeLink.length > 0 && trickNames && trickTags
     }
 
     // Handlers
     const handleStatusCheckbox = () => {
-        if(status) {
-            setStatus(false)
-        }
-        else {
-            setStatus(true)
-        }
-
-    }
-
-    const handleAddTrickTag = trickTagsChip => {
-        setTrickTags(tricktags.push(trickTagsChip))
-        console.log("Added TrickTag")
-    }
-
-    const handleDelete = chip => {
-        trickTags.splice( trickTags.findIndex(chip), 1 )
+        status ? setStatus(false) : setStatus(true)
     }
 
     const handleSubmit = res => {
-        console.log("Handle Submit")
+        console.log("Handle Submit", res)
     }
 
     // $title: String!, $status: String!, $youtubeLink: String, $trickNames: String, $trickTags: String
@@ -71,19 +55,6 @@ const addTrick = () => {
             <Grid container spacing={2} alignItems="center" justify="center">
                 <Grid item xs={12} md={12} >
                     <Typography variant="h1">Add Trick</Typography>
-                </Grid>
-                <Grid item xs={12} md={9}>
-                    {/* Change to chip input for names*/}
-                    <Typography variant="h6">Trick Names</Typography>
-                    <TextField
-                        id="title-input"
-                        label="Title"
-                        value={title}
-                        onChange={ e => setTitle(e.target.value)}
-                        variant="outlined"
-                        fullWidth
-                        required
-                    />
                 </Grid>
                 <Grid item xs={12} md={9}>
                     <Typography variant="h6">Trick YouTube Link</Typography>
@@ -97,15 +68,26 @@ const addTrick = () => {
                         required
                     />
                 </Grid>
+                <Grid item xs={12} md={9}>
+                    <Typography variant="h6">Trick Names</Typography>
+                    <ChipInput 
+                        id="add-names-chip-input"
+                        label="Add Names"
+                        variant="filled"
+                        chips={trickNames}
+                        setChips={setTrickNames}
+                    />
+                </Grid>
 
                 <Grid item xs={12} md={9}>
                     <Typography variant="h6">Trick Tags</Typography>
-                    {/* <ChipInput
-                        value={trickTags}
-                        onAdd={(chip) => handleAddTrickTag(chip)}
-                        blurBehavior="ignore"
-                        onDelete={(chip) => handleDelete(chip)}
-                    /> */}
+                    <ChipInput 
+                        id="add-tags-chip-input"
+                        label="Add Tags"
+                        variant="filled"
+                        chips={trickTags}
+                        setChips={setTrickTags}
+                    />
                 </Grid>
 
                 <Grid item xs={12} md={9}>
@@ -131,14 +113,6 @@ const addTrick = () => {
                     >
                         Add Trick
                     </Button>
-                </Grid>
-                <Grid item xs={12}>
-                    <p>Add Tags Chip Input</p>
-                    <ChipInput 
-                        id="add-tags-chip-input"
-                        label="Add Tags"
-                        variant="filled"
-                    />
                 </Grid>
             </Grid>
         </Container>

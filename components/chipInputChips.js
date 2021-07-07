@@ -8,39 +8,42 @@ import { Button, Checkbox, Chip, Container, FormControl, Grid, Input, Paper, Tex
 // Component Function
 const chipInputChips = ({ chips, setChips }) => {
 
+
+    
     // Handlers
     const clickChip = (e) => {
-        console.log("Handle Click", e)
+        console.log("Clicked chip", e)
         // IDK what i wanna do onClick
     }
+
     const deleteChip = (e) => {
-        console.log("Handle Delete", e)
-        // Find chip inside array
-        // Remove chip from array
+        let currentChip = ""
+        if(e.target.tagName === "svg") {
+            currentChip = e.target.parentElement.id
+        }
+        else if(e.target.tagName === "path") {
+            currentChip = e.target.parentElement.parentElement.id
+        }
+        setChips(chips.filter( chip => chip !== currentChip ))
     }
+
+
 
 
     // Render
-    return (
         // Return chips array .map with each chip above the input
-        <Chip
-            label="Clickable deletable"
-            onClick={clickChip}
-            onDelete={deleteChip}
-        />
+    return (
+        chips.map(( chipLabel => {
+            return (
+                <Chip
+                    id={chipLabel}
+                    label={chipLabel}
+                    key={chipLabel}
+                    onClick={clickChip}
+                    onDelete={deleteChip}
+                />
+            )
+        }))
     )
 }
 export default chipInputChips
-
-
-
-        // chips.map(( x => {
-        //     console.log("chip X", x)
-        //     return (
-        //         <Chip
-        //             label="Clickable deletable"
-        //             onClick={clickChip}
-        //             onDelete={deleteChip}
-        //         />
-        //     )
-        // }))

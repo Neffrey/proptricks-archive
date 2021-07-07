@@ -9,62 +9,66 @@ import ChipInputChips from '../components/ChipInputChips'
 
 
 // Component Function
-const chipInput = ({ id, label, variant }) => {
+const chipInput = ({ chips, id, label, setChips, variant }) => {
 
     // States
-    const [ chips, setChips ] = useState([])
     const [ input, setInput ] = useState("")
 
     
     // Validate form
     const validateForm = () => {
-        return input.length > 0
+        return input.length > 0 && input.trim().length
     }
 
     // Handlers
     const addChip = (e) => {
+        let dupeChip = false
         if(validateForm) {
-            // Push input to chip array
-            // Set input to "" to clear
-
-            // setChips(chips.push(input))
-            //console.log("onBlur", e, "chips", chips, "input", input)
+            console.log("addChip e", e )
+            for( let i = 0; i < chips.length; i++ ) {
+                if( chips[i].toLowerCase() === input.toLowerCase() ) {
+                    dupeChip = true
+                }
+            }
+            if(!dupeChip) {
+                setChips(chips.concat(input))
+            }
+            setInput("")
         }
-        
     }
     // Render
     return (
         <FormControl fullWidth >
-            <Paper>
-                <Grid container spacing={2} alignItems="center" justify="center">
-                    <Grid item xs={12} md={12} >
-                        <ChipInputChips 
-                            chips={chips}
-                            setChips={setChips}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12} >
-                        <TextField
-                            id={id}
-                            label={label}
-                            value={input}
-                            onChange={e => setInput(e.target.value)}
-                            onBlur={e => addChip(e)}
-                            variant={variant}
-                            fullWidth
-                        />
-                        <Button
-                            color="primary" 
-                            variant="contained"
-                            disabled={!validateForm()} 
-                            onClick={e => addChip(e)}
-                            size="large"
-                        >
-                            {label}
-                        </Button>
-                    </Grid>
+            <Grid container spacing={2} alignItems="center" justify="center">
+                <Grid item xs={12} md={12} >
+                    <ChipInputChips 
+                        chips={chips}
+                        setChips={setChips}
+                    />
                 </Grid>
-            </Paper>
+                <Grid item xs={10} md={10} >
+                    <TextField
+                        id={id}
+                        label={label}
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        onKeyUp={e => {if(e.key === "Enter") addChip(e)}}
+                        variant={variant}
+                        fullWidth
+                    />
+                </Grid>
+                <Grid item xs={2} md={2} >
+                    <Button
+                        color="primary" 
+                        variant="contained"
+                        disabled={!validateForm()} 
+                        onClick={e => addChip(e)}
+                        size="large"
+                    >
+                        {label}
+                    </Button>
+                </Grid>
+            </Grid>
         </FormControl>
     )
 }
